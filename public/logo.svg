@@ -1,0 +1,11 @@
+<svg width="440" height="88" viewBox="0 0 440 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="8" width="72" height="72" rx="18" fill="#EE5F51"/>
+  <circle cx="40" cy="44" r="22" fill="#FFFFFF"/>
+  <path d="M26 36a14 14 0 0 1 18-7" stroke="#EE5F51" stroke-width="4" stroke-linecap="round"/>
+  <path d="m44 24 4 7-8 1" fill="#EE5F51"/>
+  <path d="M54 52a14 14 0 0 1-18 7" stroke="#EE5F51" stroke-width="4" stroke-linecap="round"/>
+  <path d="m36 64-4-7 8-1" fill="#EE5F51"/>
+  <text x="92" y="56" fill="#111827" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="0.2">
+    PicConverter
+  </text>
+</svg>
