@@ -16,6 +16,7 @@ import {
 } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getConvertSeo } from "@/lib/seoMap";
+import { getSiteUrl } from "@/lib/siteUrl";
 import { parseConvertSlug } from "@/lib/slug";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -101,7 +102,7 @@ export default async function LocalizedConvertPage({ params }: Props) {
       icon: "signup" as const,
     },
   ];
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const path = localizedPath(safeLocale, `/convert/${slug}`);
   const pageUrl = `${base}${path}`;
   const faqSchema = {

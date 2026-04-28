@@ -2,6 +2,7 @@ import { CONVERT_SLUGS } from "@/data/seo/convert-pages";
 import { HOW_TO_PAGES } from "@/data/seo/how-to-pages";
 import { WHAT_IS_PAGES } from "@/data/seo/what-is-pages";
 import { localizedPath, SUPPORTED_LOCALES } from "@/lib/i18n/config";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 function xmlEscape(s: string) {
   return s
@@ -12,7 +13,7 @@ function xmlEscape(s: string) {
 }
 
 export async function GET() {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const urls: string[] = [];
   for (const locale of SUPPORTED_LOCALES) {
     urls.push(`${base}${localizedPath(locale, "/")}`);

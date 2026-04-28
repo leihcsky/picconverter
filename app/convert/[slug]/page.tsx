@@ -10,6 +10,7 @@ import { SEOHead } from "@/components/seo/SEOHead";
 import { CONVERT_SLUGS, type ConvertSlug } from "@/data/seo/convert-pages";
 import { localizedPath, SUPPORTED_LOCALES } from "@/lib/i18n/config";
 import { getConvertSeo } from "@/lib/seoMap";
+import { getSiteUrl } from "@/lib/siteUrl";
 import { parseConvertSlug } from "@/lib/slug";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -92,7 +93,7 @@ export default async function ConvertPage({ params }: Props) {
       icon: "signup" as const,
     },
   ];
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const pageUrl = `${base}/convert/${slug}`;
   const faqSchema = {
     "@context": "https://schema.org",

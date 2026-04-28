@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import { getSiteUrlObject } from "@/lib/siteUrl";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc"),
+  metadataBase: getSiteUrlObject(),
   title: {
     default: "PicConverter — free online image converter",
     template: "%s | PicConverter",

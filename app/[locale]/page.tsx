@@ -12,6 +12,7 @@ import {
   type AppLocale,
 } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -108,7 +109,7 @@ export default async function LocalizedHomePage({ params }: Props) {
       icon: "seo" as const,
     },
   ];
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const homePath = localizedPath(safeLocale, "/");
   const faqSchema = {
     "@context": "https://schema.org",

@@ -15,6 +15,7 @@ import {
   type AppLocale,
 } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -62,7 +63,7 @@ export default async function LocalizedHowToPage({ params }: Props) {
   const safeLocale: AppLocale = isSupportedLocale(locale) ? locale : DEFAULT_LOCALE;
   const t = getDictionary(safeLocale);
   const isAvifGuide = slug === "convert-avif-to-jpg";
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const path = localizedPath(safeLocale, `/how-to/${slug}`);
   const canonical = `${base}${path}`;
 

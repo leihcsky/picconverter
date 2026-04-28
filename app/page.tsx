@@ -5,6 +5,7 @@ import { SellingPoints, StyledSteps } from "@/components/seo/ContentSections";
 import { FAQ } from "@/components/seo/FAQ";
 import { InternalLinks } from "@/components/seo/InternalLinks";
 import { SEOHead } from "@/components/seo/SEOHead";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const metadata: Metadata = {
   title: "Free online image converter",
@@ -84,7 +85,7 @@ export default function HomePage() {
       icon: "seo" as const,
     },
   ];
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

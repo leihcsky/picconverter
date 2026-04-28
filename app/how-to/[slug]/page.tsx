@@ -9,6 +9,7 @@ import { InternalLinks } from "@/components/seo/InternalLinks";
 import { FAQ } from "@/components/seo/FAQ";
 import { HowToAvifGuideBody } from "@/components/seo/HowToAvifGuideBody";
 import { localizedPath, SUPPORTED_LOCALES } from "@/lib/i18n/config";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -54,7 +55,7 @@ export default async function HowToPage({ params }: Props) {
   if (!page) notFound();
 
   const isAvifGuide = slug === "convert-avif-to-jpg";
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://picconverter.cc";
+  const base = getSiteUrl();
   const canonical = `${base}/how-to/${slug}`;
 
   const faqSchema = {
