@@ -14,12 +14,29 @@ function xmlEscape(s: string) {
 
 export async function GET() {
   const base = getSiteUrl();
-  const urls: string[] = [];
+  const lastmod = new Date().toISOString();
+  const urls: Array<{ loc: string; changefreq: "daily" | "weekly" | "monthly"; priority: string }> = [];
+
+  const pushUrl = (loc: string, changefreq: "daily" | "weekly" | "monthly", priority: string) => {
+    urls.push({ loc, changefreq, priority });
+  };
+
   for (const locale of SUPPORTED_LOCALES) {
-    urls.push(`${base}${localizedPath(locale, "/")}`);
-    for (const slug of CONVERT_SLUGS) urls.push(`${base}${localizedPath(locale, `/convert/${slug}`)}`);
-    for (const p of HOW_TO_PAGES) urls.push(`${base}${localizedPath(locale, `/how-to/${p.slug}`)}`);
-    for (const p of WHAT_IS_PAGES) urls.push(`${base}${localizedPath(locale, `/what-is/${p.slug}`)}`);
+    // Main pages
+    pushUrl(`${base}${localizedPath(locale, "/")}`, "daily", "1.0");
+
+    // Tool landing pages
+    for (const slug of CONVERT_SLUGS) {
+      pushUrl(`${base}${localizedPath(locale, `/convert/${slug}`)}`, "weekly", "0.9");
+    }
+
+    // Informational pages
+    for (const p of HOW_TO_PAGES) {
+      pushUrl(`${base}${localizedPath(locale, `/how-to/${p.slug}`)}`, "weekly", "0.8");
+    }
+    for (const p of WHAT_IS_PAGES) {
+      pushUrl(`${base}${localizedPath(locale, `/what-is/${p.slug}`)}`, "monthly", "0.7");
+    }
   }
 
   const body =
@@ -27,8 +44,8 @@ export async function GET() {
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
     urls
       .map(
-        (loc) =>
-          `<url><loc>${xmlEscape(loc)}</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>`
+        (item) =>
+          `<url><loc>${xmlEscape(item.loc)}</loc><lastmod>${lastmod}</lastmod><changefreq>${item.changefreq}</changefreq><priority>${item.priority}</priority></url>`
       )
       .join("") +
     `</urlset>`;
