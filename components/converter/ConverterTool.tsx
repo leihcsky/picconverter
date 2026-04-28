@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { ImageFormat } from "@/lib/formatMap";
 import { convertImage } from "@/lib/convertEngine";
+import { trackEvent } from "@/lib/analytics";
 import { Card } from "@/components/ui/Card";
 import { ConvertButton } from "./ConvertButton";
 import { FileUploader } from "./FileUploader";
@@ -34,6 +35,12 @@ export function ConverterTool({ defaultTo }: Props) {
 
   const run = async () => {
     if (!file) return;
+    const sourceExt = file.name.includes(".") ? file.name.split(".").pop()?.toLowerCase() ?? "unknown" : "unknown";
+    trackEvent("convert_click", {
+      from_format: sourceExt,
+      to_format: effectiveTo,
+      file_size_bytes: file.size,
+    });
     setError(null);
     setLoading(true);
     setDownloadUrl(null);
@@ -43,8 +50,18 @@ export function ConverterTool({ defaultTo }: Props) {
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
       setDownloadName(filename);
+      trackEvent("conversion_success", {
+        from_format: sourceExt,
+        to_format: effectiveTo,
+        input_size_bytes: file.size,
+        output_size_bytes: blob.size,
+      });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Conversion failed");
+      trackEvent("conversion_failed", {
+        from_format: sourceExt,
+        to_format: effectiveTo,
+      });
     } finally {
       setLoading(false);
     }
@@ -92,6 +109,12 @@ export function ConverterTool({ defaultTo }: Props) {
                   <a
                     href={downloadUrl}
                     download={downloadName}
+                    onClick={() =>
+                      trackEvent("download_image", {
+                        file_name: downloadName,
+                        to_format: effectiveTo,
+                      })
+                    }
                     className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand text-white hover:bg-brand-dark"
                     aria-label={`Download ${downloadName}`}
                     title={`Download ${downloadName}`}

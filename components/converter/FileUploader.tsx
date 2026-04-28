@@ -2,6 +2,7 @@
 
 import type { ChangeEvent, ClipboardEvent, DragEvent } from "react";
 import { useCallback, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 type Props = {
   onFile: (file: File | null) => void;
@@ -15,21 +16,27 @@ export function FileUploader({ onFile, onError, accept = "image/*" }: Props) {
   const [urlLoading, setUrlLoading] = useState(false);
 
   const pick = useCallback(
-    (file: File | undefined) => {
+    (file: File | undefined, source: "file_input" | "drag_drop" | "paste" | "url_import") => {
       onError?.(null);
       onFile(file ?? null);
+      if (!file) return;
+      trackEvent("upload_image", {
+        method: source,
+        file_type: file.type || "unknown",
+        file_size_bytes: file.size,
+      });
     },
     [onError, onFile]
   );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    pick(e.target.files?.[0]);
+    pick(e.target.files?.[0], "file_input");
   };
 
   const onDrop = (e: DragEvent) => {
     e.preventDefault();
     setDrag(false);
-    pick(e.dataTransfer.files?.[0]);
+    pick(e.dataTransfer.files?.[0], "drag_drop");
   };
 
   const onPaste = (e: ClipboardEvent<HTMLDivElement>) => {
@@ -54,7 +61,7 @@ export function FileUploader({ onFile, onError, accept = "image/*" }: Props) {
           ? originalName
           : fallbackName;
       const file = new File([blob], safeName, { type: blob.type });
-      pick(file);
+      pick(file, "paste");
       return;
     }
 
@@ -84,7 +91,7 @@ export function FileUploader({ onFile, onError, accept = "image/*" }: Props) {
       const path = res.headers.get("x-source-filename") || new URL(url).pathname.split("/").pop() || "remote-image";
       const fileName = /\.[a-z0-9]+$/i.test(path) ? path : `${path}.jpg`;
       const file = new File([blob], fileName, { type: blob.type });
-      pick(file);
+      pick(file, "url_import");
     } catch {
       onError?.("Unable to import this URL. Please ensure it points to a public image and try again.");
     } finally {
