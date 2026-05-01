@@ -5,9 +5,7 @@ import { getSiteUrlObject } from "@/lib/siteUrl";
 
 export const metadata: Metadata = {
   metadataBase: getSiteUrlObject(),
-  title: {
-    default: "Free online image converter & format tools",
-  },
+  title: "Free online image converter & format tools",
   description:
     "Convert AVIF, WebP, PNG & JPEG in your browser: upload, pick output, download. Fast, private, no install.",
   applicationName: "PicConverter",
