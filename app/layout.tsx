@@ -6,11 +6,10 @@ import { getSiteUrlObject } from "@/lib/siteUrl";
 export const metadata: Metadata = {
   metadataBase: getSiteUrlObject(),
   title: {
-    default: "PicConverter — free online image converter",
-    template: "%s | PicConverter",
+    default: "Free online image converter & format tools",
   },
   description:
-    "Convert images online in your browser with PicConverter. Fast, private, and easy to use with no install required.",
+    "Convert AVIF, WebP, PNG & JPEG in your browser: upload, pick output, download. Fast, private, no install.",
   applicationName: "PicConverter",
   robots: {
     index: true,
@@ -25,9 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PicConverter — free online image converter",
-    description:
-      "Convert images online in your browser. Fast, private, and easy to use.",
+    title: "Free online image converter & format tools",
+    description: "Convert AVIF, WebP, PNG & JPEG in your browser—fast, private, no install.",
   },
   icons: {
     icon: "/favicon.svg",

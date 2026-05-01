@@ -55,44 +55,7 @@ export default async function ConvertPage({ params }: Props) {
 
   const seo = getConvertSeo(slug as ConvertSlug);
   const out = pair.to === "jpeg" ? "jpg" : pair.to;
-  const sellingPoints = [
-    {
-      title: "High-Quality Output",
-      description:
-        "The converter targets practical clarity for websites, documents, and social sharing, so converted images stay visually clean in normal viewing scenarios.",
-      icon: "quality" as const,
-    },
-    {
-      title: "Fast and Free",
-      description:
-        "Conversion runs instantly in your browser with no paywall for core usage, helping you finish quick format tasks without extra setup time.",
-      icon: "speed" as const,
-    },
-    {
-      title: "Simple to Use",
-      description:
-        "The workflow is intentionally short: upload, convert, and download. This keeps the tool approachable for non-technical users and fast for repeat tasks.",
-      icon: "simple" as const,
-    },
-    {
-      title: "Secure Conversion",
-      description:
-        "Files are processed in your active browser session rather than sent to a remote conversion queue, which is useful for privacy-sensitive image handling.",
-      icon: "secure" as const,
-    },
-    {
-      title: "Cross-Platform Support",
-      description:
-        "Use the same conversion flow on Windows, macOS, Linux, iOS, and Android in modern browsers, so your workflow remains consistent across devices.",
-      icon: "device" as const,
-    },
-    {
-      title: "No Sign-up Needed",
-      description:
-        "You can start converting immediately without account creation, email verification, or trial gates, which reduces friction for one-off and daily use.",
-      icon: "signup" as const,
-    },
-  ];
+  const sellingPoints = seo.sellingPoints ?? [];
   const base = getSiteUrl();
   const pageUrl = `${base}/convert/${slug}`;
   const faqSchema = {
@@ -141,9 +104,13 @@ export default async function ConvertPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: base },
-      { "@type": "ListItem", position: 2, name: "Convert", item: `${base}/convert/avif-to-jpg` },
-      { "@type": "ListItem", position: 3, name: `${pair.from.toUpperCase()} to ${pair.to.toUpperCase()}`, item: pageUrl },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${base}/` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: `${pair.from.toUpperCase()} to ${pair.to.toUpperCase()}`,
+        item: pageUrl,
+      },
     ],
   };
   return (
@@ -155,7 +122,7 @@ export default async function ConvertPage({ params }: Props) {
       <section className="py-2">
         <SEOHead title={seo.h1} description={seo.description} centered />
         <ul className="mx-auto mt-2 flex max-w-4xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-base text-zinc-700 dark:text-zinc-300">
-          {["Fast conversion", "No sign-up", "Private processing", "Cross-platform use"].map((item) => (
+          {(seo.trustBullets ?? []).map((item) => (
             <li key={item} className="inline-flex items-center gap-2">
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand/15 text-brand dark:bg-brand/25 dark:text-brand-muted">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="h-3.5 w-3.5">

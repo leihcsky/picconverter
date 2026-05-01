@@ -1,4 +1,4 @@
-type IconKey = "quality" | "speed" | "simple" | "secure" | "device" | "signup" | "seo";
+export type IconKey = "quality" | "speed" | "simple" | "secure" | "device" | "signup" | "seo";
 
 type SellingPoint = {
   title: string;

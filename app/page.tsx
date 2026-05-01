@@ -10,14 +10,14 @@ import { getSiteUrl } from "@/lib/siteUrl";
 export const metadata: Metadata = {
   title: "Free online image converter",
   description:
-    "PicConverter is a free online image converter for AVIF, WebP, PNG, and JPG. Convert images in your browser with a fast, private workflow.",
+    "Free image converter for AVIF, WebP, PNG & JPEG in your browser: upload, pick output, download. Private default path; dedicated pages for popular pairs.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Free online image converter",
     description:
-      "PicConverter is a free online image converter for AVIF, WebP, PNG, and JPG. Convert images in your browser with a fast, private workflow.",
+      "Free image converter for AVIF, WebP, PNG & JPEG in your browser: upload, pick output, download. Private path; dedicated pages for popular pairs.",
     url: "/",
     siteName: "PicConverter",
     type: "website",
@@ -138,7 +138,7 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <SEOHead
         title="Free online image converter"
-        description="PicConverter is a free online image converter. Convert images in your browser with a simple workflow: upload, convert, and download."
+        description="Free image converter for AVIF, WebP, PNG & JPEG in your browser: upload, pick output, download. Private path; dedicated pages for popular pairs."
         centered
       />
       <section className="mb-10">
@@ -150,7 +150,7 @@ export default function HomePage() {
           Image converter format guide
         </h2>
         <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-          AVIF, WebP, PNG, and JPEG/JPG each have different strengths for compatibility, quality, and file size. Pick the one that matches your use case.
+          AVIF and WebP excel at smaller web files; PNG keeps transparency and sharp UI edges; JPEG is still the safest attachment format when recipients use mixed software. Use this hub when you already know the output, or open a dedicated converter page when you need copy, FAQs, and steps tailored to one pair—such as AVIF→JPG for CMS uploads or WebP→PNG for design imports.
         </p>
       </section>
       <SellingPoints title="Why use this image converter" points={homeSellingPoints} />

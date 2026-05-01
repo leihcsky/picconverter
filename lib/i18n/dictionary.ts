@@ -24,11 +24,11 @@ export type Dictionary = HomeDictionary & CommonDictionary;
 const EN: Dictionary = {
   homeTitle: "Free online image converter",
   homeDescription:
-    "PicConverter is a free online image converter with a simple workflow: upload, convert, and download in your browser.",
+    "Free image converter for AVIF, WebP, PNG & JPEG in your browser: upload, pick output, download. Private default path; dedicated pages for popular pairs.",
   popularConverters: "Popular converters",
   formatCategories: "Image converter format guide",
   formatDescription:
-    "Choose the right format for sharing, compatibility, and file size needs across your devices and apps.",
+    "AVIF and WebP target lean web delivery; PNG preserves transparency and crisp UI edges; JPEG stays the most compatible handoff format. Pick the output that matches your next step—or open a dedicated converter page for tailored guidance on one format pair.",
   mainConverter: "Main converter",
   homeNav: "Home",
   howToNav: "How-to",
